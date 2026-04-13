@@ -64,7 +64,7 @@ export default async function AdminDashboardPage() {
   return (
     <div className="max-w-6xl mx-auto space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-charcoal">관리 대시보드</h1>
+        <h1 className="text-2xl font-bold text-charcoal">멘토 대시보드</h1>
         <p className="text-[var(--text-secondary)] mt-1">학생 현황을 실시간으로 파악하세요</p>
       </div>
 

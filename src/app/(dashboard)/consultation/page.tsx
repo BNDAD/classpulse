@@ -232,7 +232,7 @@ export default function ConsultationPage() {
                     <div>
                       <div className="font-medium text-sm text-charcoal">{m.name}</div>
                       <div className="text-xs text-[var(--text-tertiary)]">
-                        {m.role === 'MENTOR' ? '멘토' : m.role === 'CAREER_ADVISOR' ? '취업상담사' : '관리자'}
+                        {m.role === 'MENTOR' ? '멘토' : '취업상담사'}
                       </div>
                     </div>
                   </button>

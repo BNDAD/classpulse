@@ -103,7 +103,7 @@ export default function Sidebar({ userRole, userName }: SidebarProps) {
           <div className="flex-1 min-w-0">
             <p className="text-xs font-semibold text-charcoal truncate">{userName}</p>
             <p className="text-[10px] text-[var(--text-tertiary)]">
-              {userRole === 'STUDENT' ? '학생' : userRole === 'MENTOR' ? '멘토' : '관리자'}
+              {userRole === 'STUDENT' ? '학생' : '멘토'}
             </p>
           </div>
         </div>
