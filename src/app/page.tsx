@@ -145,11 +145,7 @@ export default function LandingPage() {
         <div className="preloader-line"></div>
       </div>
 
-      <div className="watermark">
-        <strong>ClassPulse</strong> Design Mockup v7 — jobyaviation.com 스타일
-      </div>
-
-      {/* NAV */}
+{/* NAV */}
       <nav className={`nav ${navScrolled ? 'scrolled' : ''}`}>
         <div className="container">
           <div className="nav-inner">
