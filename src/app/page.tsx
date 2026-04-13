@@ -243,10 +243,10 @@ export default function LandingPage() {
               </button>
               <button
                 className="btn btn-secondary"
-                onClick={() => handleDemoLogin(process.env.NEXT_PUBLIC_DEMO_ADMIN_EMAIL || 'admin@classpulse.demo')}
+                onClick={() => handleDemoLogin('mentor@classpulse.demo')}
                 disabled={loading !== null}
               >
-                관리자 체험하기 <span className="btn-arrow">&rarr;</span>
+                멘토 체험하기 <span className="btn-arrow">&rarr;</span>
               </button>
             </div>
           </div>
@@ -2025,10 +2025,10 @@ export default function LandingPage() {
             </button>
             <button
               className="btn btn-secondary"
-              onClick={() => handleDemoLogin(process.env.NEXT_PUBLIC_DEMO_ADMIN_EMAIL || 'admin@classpulse.demo')}
+              onClick={() => handleDemoLogin('mentor@classpulse.demo')}
               disabled={loading !== null}
             >
-              관리자로 시작하기 <span className="btn-arrow">&rarr;</span>
+              멘토로 시작하기 <span className="btn-arrow">&rarr;</span>
             </button>
           </div>
         </div>

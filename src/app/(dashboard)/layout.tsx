@@ -32,18 +32,30 @@ export default async function DashboardLayout({
   const userName = profile?.name || user.email?.split('@')[0] || '사용자';
   const userRole: UserRole = (profile?.role as UserRole) || 'STUDENT';
 
-  // 3. 읽지 않은 알림 수
-  const { count: notificationCount } = await serviceClient
+  // 3. 읽지 않은 알림 수 (역할별 필터링)
+  const mentorTypes = ['CONSULT_REQUEST', 'RISK_ALERT', 'risk-alert', 'FEEDBACK'];
+  const studentTypes = ['CONSULTATION', 'FEEDBACK', 'JOB_ANALYSIS', 'STREAK', 'EMOTION', 'CERT_REMINDER'];
+  const isMentorRole = ['MENTOR', 'ADMIN', 'CAREER_ADVISOR'].includes(userRole);
+
+  let notifQuery = serviceClient
     .from('notifications')
     .select('*', { count: 'exact', head: true })
     .eq('user_id', user.id)
     .eq('is_read', false);
 
+  if (isMentorRole) {
+    notifQuery = notifQuery.in('type', mentorTypes);
+  } else {
+    notifQuery = notifQuery.in('type', studentTypes);
+  }
+
+  const { count: notificationCount } = await notifQuery;
+
   return (
     <div className="flex min-h-screen bg-cream-white">
       <MobileSidebar userRole={userRole} userName={userName} />
       <div className="flex-1 flex flex-col min-w-0">
-        <Header userName={userName} notifications={notificationCount || 0} />
+        <Header userName={userName} notifications={notificationCount || 0} userRole={userRole} />
         <main className="flex-1 p-6 bg-cream-white">{children}</main>
       </div>
     </div>

@@ -54,13 +54,13 @@ export default function LoginPage() {
     setLoading(false);
   }
 
-  async function handleDemoLogin(role: 'student' | 'admin') {
+  async function handleDemoLogin(role: 'student' | 'mentor') {
     setLoading(true);
     setError(null);
     const demoEmail =
       role === 'student'
         ? process.env.NEXT_PUBLIC_DEMO_STUDENT_EMAIL || 'student@classpulse.demo'
-        : process.env.NEXT_PUBLIC_DEMO_ADMIN_EMAIL || 'admin@classpulse.demo';
+        : 'mentor@classpulse.demo';
 
     const { error: authError } = await supabase.auth.signInWithPassword({
       email: demoEmail,
@@ -169,14 +169,14 @@ export default function LoginPage() {
               학생 체험
             </button>
             <button
-              onClick={() => handleDemoLogin('admin')}
+              onClick={() => handleDemoLogin('mentor')}
               disabled={loading}
               className="py-3 rounded-full border-2 border-earth/20 text-earth font-medium hover:bg-earth/5 transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
             >
               <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.8} stroke="currentColor" className="w-5 h-5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
               </svg>
-              관리자 체험
+              멘토 체험
             </button>
           </div>
         </div>

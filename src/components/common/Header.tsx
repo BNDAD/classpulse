@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 interface HeaderProps {
   userName: string;
   notifications?: number;
+  userRole?: string;
 }
 
 // 자격증 사이트 매핑
@@ -42,7 +43,8 @@ function getDDay(dateStr: string): number {
   return Math.ceil((target.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
 }
 
-export default function Header({ userName, notifications = 0 }: HeaderProps) {
+export default function Header({ userName, notifications = 0, userRole = 'STUDENT' }: HeaderProps) {
+  const isMentor = ['MENTOR', 'ADMIN', 'CAREER_ADVISOR'].includes(userRole);
   const [showMenu, setShowMenu] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [notifTab, setNotifTab] = useState<'notif' | 'cert'>('cert');
@@ -59,18 +61,30 @@ export default function Header({ userName, notifications = 0 }: HeaderProps) {
     router.refresh();
   }
 
+  // 멘토용 알림 타입 (상담요청, 위험알림, 피드백 제출)
+  const mentorNotifTypes = ['CONSULT_REQUEST', 'RISK_ALERT', 'risk-alert', 'FEEDBACK'];
+  // 학생용 알림 타입
+  const studentNotifTypes = ['CONSULTATION', 'FEEDBACK', 'JOB_ANALYSIS', 'STREAK', 'EMOTION', 'CERT_REMINDER'];
+
   async function loadNotifications() {
     setNotifLoading(true);
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return;
 
-    const { data } = await supabase
+    let query = supabase
       .from('notifications')
       .select('*')
       .eq('user_id', user.id)
       .order('created_at', { ascending: false })
       .limit(10);
 
+    if (isMentor) {
+      query = query.in('type', mentorNotifTypes);
+    } else {
+      query = query.in('type', studentNotifTypes);
+    }
+
+    const { data } = await query;
     setNotifList(data || []);
     setNotifLoading(false);
   }
@@ -265,7 +279,7 @@ export default function Header({ userName, notifications = 0 }: HeaderProps) {
                       notifTab === 'notif' ? 'text-sky-deep' : 'text-[var(--text-tertiary)] hover:text-charcoal'
                     }`}
                   >
-                    알림
+                    {isMentor ? '학생 알림' : '알림'}
                     {notifications > 0 && (
                       <span className="ml-1 px-1.5 py-0.5 text-[10px] rounded-full bg-red-100 text-red-600 font-bold">
                         {notifications}
