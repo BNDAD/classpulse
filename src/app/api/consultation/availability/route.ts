@@ -70,5 +70,9 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  return NextResponse.json({ slots });
+  // 4. 시간순 정렬 + 중복 제거
+  slots.sort((a, b) => a.time.localeCompare(b.time));
+  const unique = slots.filter((s, i, arr) => i === 0 || s.time !== arr[i - 1].time);
+
+  return NextResponse.json({ slots: unique });
 }
