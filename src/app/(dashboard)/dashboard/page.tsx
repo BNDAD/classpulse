@@ -65,10 +65,10 @@ export default async function DashboardPage() {
   const completedCount = onboardingSteps.filter((s) => s.done).length;
   const allDone = completedCount === onboardingSteps.length;
 
-  const isAdmin = profile?.role === 'MENTOR' || profile?.role === 'ADMIN' || profile?.role === 'CAREER_ADVISOR';
+  const isMentor = profile?.role === 'MENTOR' || profile?.role === 'ADMIN' || profile?.role === 'CAREER_ADVISOR';
 
-  if (isAdmin) {
-    redirect('/admin');
+  if (isMentor) {
+    redirect('/mentor');
   }
 
   return (

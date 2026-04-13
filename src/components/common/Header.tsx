@@ -189,7 +189,7 @@ export default function Header({ userName, notifications = 0, userRole = 'STUDEN
     else if (type === 'FEEDBACK' && meta.documentId) router.push(`/coach/${meta.documentId}`);
     else if (type === 'CONSULTATION' || type === 'CONSULT_REQUEST') router.push('/consultation');
     else if (type === 'CERT_REMINDER') router.push('/certs');
-    else if (type === 'RISK_ALERT') router.push('/admin/alerts');
+    else if (type === 'RISK_ALERT') router.push('/mentor/alerts');
     else if (type === 'STREAK') router.push('/learning');
     else if (type === 'EMOTION') router.push('/learning');
     else router.push('/dashboard');

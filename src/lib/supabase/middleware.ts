@@ -41,7 +41,7 @@ export async function updateSession(request: NextRequest) {
                           request.nextUrl.pathname.startsWith('/trends') ||
                           request.nextUrl.pathname.startsWith('/consultation') ||
                           request.nextUrl.pathname.startsWith('/certs') ||
-                          request.nextUrl.pathname.startsWith('/admin');
+                          request.nextUrl.pathname.startsWith('/mentor');
 
   // 미인증 사용자가 대시보드 접근 → 로그인으로 리다이렉트
   if (!user && isDashboardPage) {
