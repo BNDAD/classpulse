@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from 'react';
 import { createClient } from '@/lib/supabase/client';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
 type Step = 1 | 2 | 3;
@@ -32,7 +32,16 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+  const searchParams = useSearchParams();
   const supabase = createClient();
+
+  // URL 쿼리 파라미터로 역할 자동 선택
+  useEffect(() => {
+    const roleParam = searchParams.get('role');
+    if (roleParam === 'MENTOR' || roleParam === 'STUDENT') {
+      setForm((prev) => ({ ...prev, role: roleParam }));
+    }
+  }, [searchParams]);
 
   // 지점 목록 로드
   useEffect(() => {

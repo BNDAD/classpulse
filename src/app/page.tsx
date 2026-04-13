@@ -2011,22 +2011,20 @@ export default function LandingPage() {
       {/* CTA */}
       <section className="cta-section" id="cta">
         <div className="container">
-          <h2 className="cta-heading reveal">지금 바로 체험해보세요</h2>
+          <h2 className="cta-heading reveal">지금 바로 시작하세요</h2>
           <p className="cta-desc reveal reveal-d1">
-            데모 계정으로 모든 기능을 바로 확인할 수 있습니다. 별도 가입 불필요.
+            회원가입 후 ClassPulse의 모든 기능을 이용할 수 있습니다.
           </p>
           <div className="cta-btns reveal reveal-d2">
             <button
               className="btn btn-primary"
-              onClick={() => handleDemoLogin(process.env.NEXT_PUBLIC_DEMO_STUDENT_EMAIL || 'student@classpulse.demo')}
-              disabled={loading !== null}
+              onClick={() => router.push('/register?role=STUDENT')}
             >
               학생으로 시작하기 <span className="btn-arrow">&rarr;</span>
             </button>
             <button
               className="btn btn-secondary"
-              onClick={() => handleDemoLogin('mentor@classpulse.demo')}
-              disabled={loading !== null}
+              onClick={() => router.push('/register?role=MENTOR')}
             >
               멘토로 시작하기 <span className="btn-arrow">&rarr;</span>
             </button>
