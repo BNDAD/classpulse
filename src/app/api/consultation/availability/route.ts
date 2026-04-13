@@ -45,8 +45,12 @@ export async function GET(request: NextRequest) {
     }) || []
   );
 
-  // 3. 가능한 슬롯 생성
+  // 3. 가능한 슬롯 생성 (오늘이면 지난 시간 제외)
   const slots: { time: string; available: boolean }[] = [];
+  const now = new Date();
+  const todayStr = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}`;
+  const isToday = date === todayStr;
+  const nowMinutes = now.getHours() * 60 + now.getMinutes();
 
   for (const avail of availability) {
     const [startH, startM] = avail.start_time.split(':').map(Number);
@@ -60,6 +64,12 @@ export async function GET(request: NextRequest) {
       const h = Math.floor(currentMin / 60).toString().padStart(2, '0');
       const m = (currentMin % 60).toString().padStart(2, '0');
       const timeKey = `${h}:${m}`;
+
+      // 오늘이면 현재 시각 이전 슬롯은 스킵
+      if (isToday && currentMin <= nowMinutes) {
+        currentMin += slotMin;
+        continue;
+      }
 
       slots.push({
         time: timeKey,
