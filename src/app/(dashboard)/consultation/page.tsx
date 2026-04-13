@@ -17,7 +17,7 @@ const DAY_NAMES = ['일', '월', '화', '수', '목', '금', '토'];
 
 export default function ConsultationPage() {
   const supabase = createClient();
-  const [tab, setTab] = useState<'book' | 'history'>('book');
+  const [tab, setTab] = useState<'book' | 'history'>('history');
   const [mentors, setMentors] = useState<any[]>([]);
   const [selectedMentor, setSelectedMentor] = useState<string>('');
   const [selectedDate, setSelectedDate] = useState<string>('');
@@ -32,6 +32,7 @@ export default function ConsultationPage() {
   const [error, setError] = useState<string | null>(null);
   const [consultations, setConsultations] = useState<any[]>([]);
   const [isMentor, setIsMentor] = useState(false);
+  const [roleLoaded, setRoleLoaded] = useState(false);
   const [calendarMonth, setCalendarMonth] = useState(() => {
     const now = new Date();
     return { year: now.getFullYear(), month: now.getMonth() };
@@ -52,13 +53,18 @@ export default function ConsultationPage() {
     loadMentors();
   }, []);
 
-  // 상담 내역 로드
+  // 상담 내역 로드 + 역할 판별
   useEffect(() => {
     async function loadConsultations() {
       const res = await fetch('/api/consultation');
       const data = await res.json();
       setConsultations(data.consultations || []);
       setIsMentor(data.isMentor || false);
+      if (!roleLoaded) {
+        // 학생이면 예약하기 탭, 멘토/관리자면 상담 내역 탭
+        setTab(data.isMentor ? 'history' : 'book');
+        setRoleLoaded(true);
+      }
     }
     loadConsultations();
   }, [success]);
@@ -181,23 +187,29 @@ export default function ConsultationPage() {
   return (
     <div className="max-w-5xl mx-auto space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-charcoal">상담 예약</h1>
-        <p className="text-[var(--text-secondary)] mt-1">멘토와 1:1 상담을 예약하세요</p>
+        <h1 className="text-2xl font-bold text-charcoal">
+          {isMentor ? '상담 관리' : '상담 예약'}
+        </h1>
+        <p className="text-[var(--text-secondary)] mt-1">
+          {isMentor ? '학생 상담 요청을 확인하고 관리하세요' : '멘토와 1:1 상담을 예약하세요'}
+        </p>
       </div>
 
       {/* Tabs */}
       <div className="flex gap-2">
-        <button onClick={() => setTab('book')}
-          className={`px-5 py-2 rounded-xl text-sm font-medium transition-all ${
-            tab === 'book' ? 'bg-sky-deep text-white' : 'bg-cream-white text-[var(--text-secondary)] hover:bg-cream-light card-shadow'
-          }`}>
-          예약하기
-        </button>
+        {!isMentor && (
+          <button onClick={() => setTab('book')}
+            className={`px-5 py-2 rounded-xl text-sm font-medium transition-all ${
+              tab === 'book' ? 'bg-sky-deep text-white' : 'bg-cream-white text-[var(--text-secondary)] hover:bg-cream-light card-shadow'
+            }`}>
+            예약하기
+          </button>
+        )}
         <button onClick={() => setTab('history')}
           className={`px-5 py-2 rounded-xl text-sm font-medium transition-all ${
             tab === 'history' ? 'bg-sky-deep text-white' : 'bg-cream-white text-[var(--text-secondary)] hover:bg-cream-light card-shadow'
           }`}>
-          상담 내역 {consultations.length > 0 && `(${consultations.length})`}
+          {isMentor ? '상담 요청' : '상담 내역'} {consultations.length > 0 && `(${consultations.length})`}
         </button>
       </div>
 
