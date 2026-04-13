@@ -43,7 +43,7 @@ export default function ConsultationPage() {
       const { data } = await supabase
         .from('user_profiles')
         .select('user_id, name, role')
-        .in('role', ['MENTOR', 'ADMIN', 'CAREER_ADVISOR']);
+        .in('role', ['MENTOR', 'CAREER_ADVISOR']);
       setMentors(data || []);
       if (data && data.length > 0 && !selectedMentor) {
         setSelectedMentor(data[0].user_id);
