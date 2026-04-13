@@ -166,33 +166,33 @@ BEGIN
   END IF;
 
   -- ══════════════════════════════════════════════
-  -- 4. 멘토 첨삭 (document_revisions)
+  -- 4. 멘토 첨삭 (document_revisions) — seed_extra에서 생성한 문서 기준
   -- ══════════════════════════════════════════════
-  IF v_mentor IS NOT NULL AND v_student1 IS NOT NULL THEN
+  IF v_mentor IS NOT NULL AND v_student4 IS NOT NULL THEN
     INSERT INTO document_revisions (document_id, mentor_id, original_content, revised_content, revision_notes, section_index, status) VALUES
-    ('d1000000-0000-0000-0000-000000000010', v_mentor,
-     '저는 Java와 Spring Boot를 활용한 웹 개발에 열정을 가진 주니어 개발자입니다.',
-     '6개월간 Java와 Spring Boot로 3개의 실전 프로젝트를 완성하며, 동시 처리 성능을 10배 개선한 경험을 가진 개발자입니다.',
-     '첫 문장에서 "열정"보다 구체적인 성과를 보여주세요. 숫자가 들어가면 훨씬 인상적이에요.',
+    ('d4000000-0000-0000-0000-000000000001', v_mentor,
+     'AWS 클라우드 인프라와 컨테이너 오케스트레이션에 전문성을 기르고 있는 주니어 엔지니어입니다.',
+     'AWS EKS 기반 마이크로서비스 3종을 설계·배포하고 Terraform으로 인프라를 코드화한 경험을 가진 클라우드 엔지니어입니다.',
+     '첫 문장에서 "전문성을 기르고 있는"은 약해요. 실제로 한 일을 보여주세요.',
      0, 'ACCEPTED'),
-    ('d1000000-0000-0000-0000-000000000010', v_mentor,
-     '카카오의 기술 문화와 대규모 트래픽 처리 환경에서 성장하고 싶습니다.',
-     '카카오톡이 매일 수십억 건의 메시지를 처리하는 기술적 도전에 매력을 느끼며, MSA 전환 과정에서 겪은 기술적 과제들을 함께 해결해나가고 싶습니다.',
-     '마무리는 "성장하고 싶다"보다 회사의 구체적인 기술 과제를 언급하며 기여할 수 있는 부분을 보여주세요.',
-     1, 'ACCEPTED');
+    ('d4000000-0000-0000-0000-000000000001', v_mentor,
+     'Terraform을 활용한 IaC 경험과 GitHub Actions CI/CD 파이프라인 구축 경험을 바탕으로 안정적이고 효율적인 클라우드 인프라를 설계하고 싶습니다.',
+     'Terraform으로 AWS 리소스 20여 개를 코드화하고, GitHub Actions + ArgoCD로 블루/그린 무중단 배포를 구현한 경험을 NHN 클라우드의 인프라 자동화에 기여하고 싶습니다.',
+     'NHN이 왜 좋은지, 본인 경험이 어떻게 연결되는지 구체적으로!',
+     1, 'PENDING');
   END IF;
 
-  IF v_mentor IS NOT NULL AND v_student5 IS NOT NULL THEN
+  IF v_mentor IS NOT NULL AND v_student2 IS NOT NULL THEN
     INSERT INTO document_revisions (document_id, mentor_id, original_content, revised_content, revision_notes, section_index, status) VALUES
-    ('d1000000-0000-0000-0000-000000000001', v_mentor,
-     '저는 Java와 Spring Boot를 활용하여 다양한 프로젝트를 진행해왔습니다.',
-     'Java와 Spring Boot 기반으로 쇼핑몰 API를 설계하며, JPA 성능 최적화와 Redis 캐시 전략을 실전에서 적용해본 백엔드 개발자입니다.',
-     '"다양한 프로젝트"는 막연해요. 가장 임팩트 있는 프로젝트 하나를 구체적으로 보여주세요.',
+    ('d2000000-0000-0000-0000-000000000001', v_mentor,
+     '안녕하세요, 프론트엔드 개발을 배우고 있는 이지은입니다.',
+     'React와 TypeScript로 인터랙티브한 UI를 만드는 데 재미를 느끼고 있는 프론트엔드 개발자 이지은입니다.',
+     '"배우고 있는"보다는 이미 할 수 있는 것을 보여주세요. 자신감이 중요해요!',
      0, 'ACCEPTED'),
-    ('d1000000-0000-0000-0000-000000000001', v_mentor,
-     '특히 쇼핑몰 프로젝트에서 RESTful API 설계와 JPA를 활용한 데이터 모델링 경험을 쌓았습니다...',
-     '쇼핑몰 프로젝트에서 상품-주문 도메인의 복잡한 연관관계를 JPA로 설계하고, N+1 문제를 Fetch Join으로 해결하여 쿼리 수를 85% 줄인 경험이 있습니다.',
-     '경험을 "쌓았습니다"로 끝내지 말고, 구체적인 문제 해결과 수치를 넣어야 해요.',
+    ('d2000000-0000-0000-0000-000000000001', v_mentor,
+     '아직 부족하지만 사용자 경험을 중시하는 개발자가 되고 싶습니다.',
+     'CSS 애니메이션으로 페이지 전환 효과를 직접 구현하며 사용자 경험의 디테일을 챙기는 개발자로 성장하고 있습니다.',
+     '"부족하지만"은 절대 쓰면 안 돼요! 자소서에서 자기를 깎아내리면 탈락이에요.',
      1, 'PENDING');
   END IF;
 
