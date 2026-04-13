@@ -1,0 +1,12 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/pulse-check",
+      "schedule": "0 0 * * *"
+    },
+    {
+      "path": "/api/cron/update-trends",
+      "schedule": "0 8 * * *"
+    }
+  ]
+}

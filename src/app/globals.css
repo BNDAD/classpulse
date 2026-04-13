@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Joby Aviation 스타일 */
+    --cream: #F5F0E8;
+    --cream-light: #FAF7F2;
+    --cream-dark: #EDE6D8;
+    --warm-white: #FDFBF7;
+    --sky: #4A90D9;
+    --sky-light: #7AB8F5;
+    --sky-deep: #1B3A5C;
+    --sky-soft: #A8CBE8;
+    --earth: #B89B71;
+    --earth-light: #D4BC96;
+    --charcoal: #1A1A1A;
+    --text-primary: #1A1A1A;
+    --text-secondary: #6B6355;
+    --text-tertiary: #9C9488;
+    --border: rgba(26,26,26,0.08);
+    --radius: 20px;
+    --radius-sm: 12px;
+    --radius-lg: 28px;
+  }
+}
+
+@layer utilities {
+  .gradient-primary {
+    @apply bg-gradient-to-r from-sky-deep to-sky;
+  }
+  .gradient-accent {
+    @apply bg-gradient-to-r from-earth to-earth-light;
+  }
+  .card-shadow {
+    box-shadow: 0 2px 8px rgba(26,26,26,0.04), 0 1px 2px rgba(26,26,26,0.03);
+  }
+  .card-shadow-hover {
+    box-shadow: 0 8px 24px rgba(26,26,26,0.08), 0 4px 8px rgba(26,26,26,0.04);
+  }
+}
+
+/* Streak Calendar - GitHub Grass Style */
+.streak-cell {
+  @apply w-4 h-4 rounded-sm;
+}
+.streak-0 { background: var(--cream-dark); }
+.streak-1 { background: var(--sky-soft); }
+.streak-2 { background: var(--sky); }
+.streak-3 { background: var(--sky-deep); }
+
+/* Skeleton Loading */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, var(--cream) 25%, var(--cream-dark) 50%, var(--cream) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--cream-dark); border-radius: 100px; }
+::-webkit-scrollbar-thumb:hover { background: var(--earth); }
+
+/* Smooth reveal animation */
+@keyframes reveal-up {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-reveal {
+  animation: reveal-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+.animate-reveal-d1 { animation-delay: 0.1s; }
+.animate-reveal-d2 { animation-delay: 0.2s; }
+.animate-reveal-d3 { animation-delay: 0.3s; }
