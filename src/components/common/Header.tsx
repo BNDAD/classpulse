@@ -348,19 +348,15 @@ export default function Header({ userName, notifications = 0 }: HeaderProps) {
                     <div className="max-h-80 overflow-y-auto">
                       {notifLoading ? (
                         <div className="p-6 text-center text-sm text-[var(--text-tertiary)]">로딩 중...</div>
-                      ) : notifList.length > 0 ? (
-                        notifList.map((notif) => (
+                      ) : notifList.filter((n) => !n.is_read).length > 0 ? (
+                        notifList.filter((n) => !n.is_read).map((notif) => (
                           <button
                             key={notif.id}
                             onClick={() => handleNotifItemClick(notif)}
-                            className={`w-full text-left px-4 py-3 border-b border-[rgba(26,26,26,0.04)] hover:bg-cream-dark transition-colors ${
-                              !notif.is_read ? 'bg-sky/5' : ''
-                            }`}
+                            className="w-full text-left px-4 py-3 border-b border-[rgba(26,26,26,0.04)] hover:bg-cream-dark transition-colors bg-sky/5"
                           >
                             <div className="flex items-start gap-2">
-                              {!notif.is_read && (
-                                <div className="w-2 h-2 rounded-full bg-sky mt-1.5 shrink-0" />
-                              )}
+                              <div className="w-2 h-2 rounded-full bg-sky mt-1.5 shrink-0" />
                               <div className="flex-1 min-w-0">
                                 <p className="text-sm font-medium text-charcoal">{notif.title}</p>
                                 <p className="text-xs text-[var(--text-secondary)] mt-0.5 line-clamp-2">{notif.content}</p>
